@@ -1,50 +1,42 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { useState } from "react";
+import Model from "@/libs/model"
+import { FormHelper } from "@/libs/form-support"
+import Endereco from "./Endereco"
 
-const FormText = ({ label, value, onChange }: { label: string, value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) => {
-  return (
-    <>
-      <label>{label}</label>
-      <input type="text" className="form-control" value={value} onChange={onChange} />
-    </>
-  );
+export default function Modelo1Campo() {
+  return Model(interview, document)
 }
 
 
-export default function Home() {
-  const searchParams = useSearchParams()
-  const currentUrl = window.location.origin + window.location.pathname
-  const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : { texto: "" }
-  const [data, setData] = useState(initialData)
 
-  const handleSave = () => {
-    if (window.parent) {
-      console.log('Salvando dados:', data)
-      const modjusDocument = document.getElementById('modjus-document')?.outerHTML
-      console.log('Conteúdo do div #modjus-document:', modjusDocument)
-      window.parent.postMessage({ type: 'SAVE_DATA', payload: modjusDocument }, '*')
-    }
-  }
+function interview(Frm: FormHelper) {
+  // const options = [{ id: "1", name: 'SP' }, { id: "2", name: 'RJ' }]
+  const options = "RJ;SP;MG".split(';').map((uf, idx) => ({ id: `${idx + 1}`, name: uf }))
 
-  return (<div>
-    <div className="container">
-      <div className="content">
-        <div id="modjus-interview">
-          <h1>Entrevista</h1>
-          <FormText label="Qual é o texto?" value={data.texto} onChange={(e) => { setData({ texto: e.target.value }) }} />
-        </div>
+  return <>
+    <Frm.Input label="Qual é o texto?" name="texto" width={6} />
+    <Frm.Select label="UF" name="uf" options={options} width={6} />
 
-        <h1 className="mt-3">Preview do Documento</h1>
-        <div className="alert alert-warning">
-          <div id="modjus-document" modjus-data={JSON.stringify(data)} modjus-url={currentUrl}>
-            O texto é: '{data.texto}'.
-          </div>
-        </div>
+    <Endereco Frm={Frm} name="endereco" />
+
+    <Frm.TextArea label="Qual é o texto1?" name="texto1" />
+
+    {JSON.stringify(Frm.data)}
+  </>
+}
+
+function document(data: any) {
+  return <>
+    <p>O texto é: '{data.texto}'.</p>
+    <p>O texto 1 é: '{data.texto1}'.</p>
+    <p>A UF é: '{data.uf}'.</p>
+    {data.uf === '1'
+      ? <div>
+        <p>Estado de RJ</p>
+        <p>Não é SP</p>
       </div>
-      <button className="btn btn-primary mt-3 mb-3" onClick={handleSave}>Salvar</button>
-    </div>
-  </div>
-  );
+      : null}
+  </>
 }
+
