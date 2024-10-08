@@ -3,10 +3,6 @@
 import Model from "@/libs/model"
 import { FormHelper, labelToName } from "@/libs/form-support"
 
-export default function BpcLoasPdcMais17() {
-  return Model(interview, document)
-}
-
 function interview(Frm: FormHelper) {
   const oEscolaridade = ";Ensino Fundamental - 1º ano;Ensino Fundamental - 2º ano;Ensino Fundamental - 3º ano;Ensino Fundamental - 4º ano;Ensino Fundamental - 5º ano;Ensino Fundamental - 6º ano;Ensino Fundamental - 7º ano;Ensino Fundamental - 8º ano;Ensino Fundamental - 9º ano;Ensino Médio - 1ª série;Ensino Médio - 2ª série;Ensino Médio - 3ª série;Curso Técnico;Ensino Superior;Mestrado;Doutorado".split(';').map((i) => ({ id: `${i}`, name: i }))
   const oFuncoesDoCorpo = "Funções Mentais;Funções Sensoriais da Visão;Funções Sensoriais da Audição;Funções Sensoriais Adicionais e Dor;Funções da Voz e da Fala;Funções do Sistema Cardiovascular;Funções do Sistema Hematológico;Funções do Sistema Imunológico;Funções do Sistema Respiratório;Funções do Sistema Digestivo;Funções do Sistema Metabólico e Endócrino;Funções Geniturinárias e Reprodutivas;Funções Neuromusculoesqueléticas e Relacionadas ao Movimento;Funções da Pele e Estruturas Relacionadas".split(';').map((i) => ({ label: i, name: `${labelToName(i)}` }))
@@ -67,6 +63,13 @@ function interview(Frm: FormHelper) {
 function document(data: any) {
   const Frm = new FormHelper()
   Frm.update(data)
-  return <div className="row">{interview(Frm)}</div>
+  return <div className="row">
+    <h1 className="text-center">Laudo Médico</h1>
+    {interview(Frm)}
+    <div className="assinatura text-center">__________________________________<br />Assinatura do Médico</div>
+  </div>
 }
 
+export default function BpcLoasPdcMais17() {
+  return Model(interview, document, { saveButton: false, pdfButton: true, pdfFileName: 'bpc-loas-pcd-mais-17' })
+}

@@ -1,16 +1,17 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, usePathname } from 'next/navigation'
 import { useState } from "react"
 import { handleSave } from '@/libs/extension'
 import { EMPTY_FORM_STATE, FormHelper } from '@/libs/form-support'
+import Print from '@/components/print'
 
 const Frm = new FormHelper()
 
-export default function Model(interview: (Frm: FormHelper) => JSX.Element, document: (data: any) => JSX.Element) {
+export default function Model(interview: (Frm: FormHelper) => JSX.Element, document: (data: any) => JSX.Element, options?: { saveButton?: boolean, pdfButton?: boolean, pdfFileName: string }) {
     const searchParams = useSearchParams()
-    const currentUrl = window.location.origin + window.location.pathname
-    const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : {  }
+    const currentUrl = searchParams.get('url') ? JSON.parse(searchParams.get('url') as string) : (process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_VERCEL_URL) + usePathname()
+    const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : {}
     const [data, setData] = useState(initialData)
     Frm.update(data, setData, EMPTY_FORM_STATE)
 
@@ -19,7 +20,7 @@ export default function Model(interview: (Frm: FormHelper) => JSX.Element, docum
             <div className="content mt-3">
                 <div className="row">
                     <div id="modjus-interview" className="col col-12 col-md-6">
-                        <h1 className="mt-3">Entrevista</h1>
+                        <h1 className="mt-3">Formulário</h1>
                         <div className="alert alert-info">
                             <div className="row">
                                 {interview(Frm)}
@@ -27,7 +28,7 @@ export default function Model(interview: (Frm: FormHelper) => JSX.Element, docum
                         </div>
                     </div>
                     <div className="col col-12 col-md-6">
-                        <h1 className="mt-3">Preview do Documento</h1>
+                        <h1 className="mt-3">Previsão do Documento</h1>
                         <div className="alert alert-warning">
                             <div id="modjus-document" modjus-data={JSON.stringify(data)} modjus-url={currentUrl}>
                                 {document(data)}
@@ -36,7 +37,8 @@ export default function Model(interview: (Frm: FormHelper) => JSX.Element, docum
                     </div>
                 </div>
             </div>
-            <button className="btn btn-primary mt-3 mb-3" onClick={handleSave}>Salvar</button>
+            {options?.pdfButton && <Print id={options?.pdfFileName} className="btn btn-primary mt-3 mb-3" />}
+            {(!options || !options.pdfButton || options?.saveButton) && <button className="btn btn-primary mt-3 mb-3" onClick={handleSave}>Salvar</button>}
         </div>
     </div>
     );

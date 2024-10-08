@@ -136,8 +136,8 @@ export class FormHelper {
             </Form.Group>
         ) : (
             <div className={this.colClass(width)}>
-                <Form.Label>{label}</Form.Label>
-                <p><strong>{this.get(name)}</strong></p>
+                <Form.Label className="report-label"><div>{label}</div></Form.Label>
+                <p className="report-field"><strong>{this.get(name)}</strong></p>
             </div>
         )
     }
@@ -187,11 +187,18 @@ export class FormHelper {
         ) : (
             <div className={this.colClass(width)}>
                 <Form.Label>{label}</Form.Label>
-                {labelsAndNames.map((c, idx) => {
-                    return (
-                        <p key={c.name}>{c.label}: <strong>{this.get(c.name) ? 'Sim' : 'Não'}</strong></p>
-                    )
-                })}
+                <table className="table table-bordered">
+                    <tbody>
+                        {labelsAndNames.map((c, idx) => {
+                            return (
+                                <tr key={c.name}>
+                                    <td>{c.label}</td>
+                                    <td><strong>{this.get(c.name) ? 'Sim' : 'Não'}</strong></td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -228,7 +235,7 @@ export class FormHelper {
         ) : (
             <div className={this.colClass(width)}>
                 <Form.Label>{label}</Form.Label>
-                <table className="table table-bordered">
+                <table className="table table-bordered" >
                     <thead>
                         <tr>
                             <th></th>
