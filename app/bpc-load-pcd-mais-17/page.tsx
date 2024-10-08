@@ -10,12 +10,12 @@ export default function BpcLoasPdcMais17() {
 function interview(Frm: FormHelper) {
   // const options = [{ id: "1", name: 'SP' }, { id: "2", name: 'RJ' }]
   const options = "RJ;SP;MG".split(';').map((uf, idx) => ({ id: `${idx + 1}`, name: uf }))
-  const oEscolaridade = "Ensino Fundamental - 1º ano;Ensino Fundamental - 2º ano;Ensino Fundamental - 3º ano;Ensino Fundamental - 4º ano;Ensino Fundamental - 5º ano;Ensino Fundamental - 6º ano;Ensino Fundamental - 7º ano;Ensino Fundamental - 8º ano;Ensino Fundamental - 9º ano;Ensino Médio - 1ª série;Ensino Médio - 2ª série;Ensino Médio - 3ª série;Curso Técnico;Ensino Superior;Mestrado;Doutorado".split(';').map((i, idx) => ({ id: `${i}`, name: i }))
+  const oEscolaridade = ";Ensino Fundamental - 1º ano;Ensino Fundamental - 2º ano;Ensino Fundamental - 3º ano;Ensino Fundamental - 4º ano;Ensino Fundamental - 5º ano;Ensino Fundamental - 6º ano;Ensino Fundamental - 7º ano;Ensino Fundamental - 8º ano;Ensino Fundamental - 9º ano;Ensino Médio - 1ª série;Ensino Médio - 2ª série;Ensino Médio - 3ª série;Curso Técnico;Ensino Superior;Mestrado;Doutorado".split(';').map((i, idx) => ({ id: `${i}`, name: i }))
   const oFuncoesDoCorpo = "Funções Mentais;Funções Sensoriais da Visão;Funções Sensoriais da Audição;Funções Sensoriais Adicionais e Dor;Funções da Voz e da Fala;Funções do Sistema Cardiovascular;Funções do Sistema Hematológico;Funções do Sistema Imunológico;Funções do Sistema Respiratório;Funções do Sistema Digestivo;Funções do Sistema Metabólico e Endócrino;Funções Geniturinárias e Reprodutivas;Funções Neuromusculoesqueléticas e Relacionadas ao Movimento;Funções da Pele e Estruturas Relacionadas".split(';').map((i, idx) => ({ label: i, name: `${labelToName(i)}` }))
   const oNivel = "Grau A;Grau B;Grau C;Grau D".split(';').map((i, idx) => ({ id: `${i.split(' ')[1]}`, name: i }))
-  const oAtividadeFisica = "Fazer caminhadas;Permanecer em pé;Subir e descer escadas;Abaixar ou agachar;Erguer peso".split(';').map((i, idx) => ({ label: i, name: `${labelToName(i)}` }))
-  const oAutoCuidado = "Higiene pessoal;Alimentar-se e beber;Preparar as próprias refeições;Organizar atividades domésticas, cuidado da casa, compras e pagamento de contas;Ficar sozinho(a) sem produzir riscos para si;Cuidar de terceiros".split(';').map((i, idx) => ({ label: i, name: `${labelToName(i)}` }))
-  const oRelacoes = "Ouvir;Falar;Orientar-se espacialmente e no tempo;Compreender e ser compreendido;Concentrar-se para a execução de tarefas;Juízo Crítico e capacidade de tomar decisões, inclusive sob estresse;Estabelecer interações interpessoais familiares, sociais e profissionais;Possibilidade de se colocar no mercado de trabalho;Utilizar transporte público".split(';').map((i, idx) => ({ label: i, name: `${labelToName(i)}` }))
+  const oAtividadeFisica = "Fazer caminhadas;Permanecer em pé;Subir e descer escadas;Abaixar ou agachar;Erguer peso".split(';').map((i, idx) => ({ label: i, name: `${labelToName('atividades ' + i)}` }))
+  const oAutoCuidado = "Higiene pessoal;Alimentar-se e beber;Preparar as próprias refeições;Organizar atividades domésticas, cuidado da casa, compras e pagamento de contas;Ficar sozinho(a) sem produzir riscos para si;Cuidar de terceiros".split(';').map((i, idx) => ({ label: i, name: `${labelToName('cuidados ' + i)}` }))
+  const oRelacoes = "Ouvir;Falar;Orientar-se espacialmente e no tempo;Compreender e ser compreendido;Concentrar-se para a execução de tarefas;Juízo Crítico e capacidade de tomar decisões, inclusive sob estresse;Estabelecer interações interpessoais familiares, sociais e profissionais;Possibilidade de se colocar no mercado de trabalho;Utilizar transporte público".split(';').map((i, idx) => ({ label: i, name: `${labelToName('relacoes ' + i)}` }))
 
   return <>
     <Frm.Input label="Nome" name="nome" width={9} />
@@ -59,15 +59,16 @@ function interview(Frm: FormHelper) {
     <Frm.TextArea label="O(A) periciando(a) depende de supervisão ou acompanhamento permanente de terceiros em sua vida diária?" name="supervisao" width={12} />
     <Frm.TextArea label="Informações Adicionais que o(a) perito(a) entenda que possam ajudar no julgamento da lide." name="informacoesAdicionais" width={12} />
 
-    <div className="col col-12">
+    {/* <div className="col col-12">
       <h4 className="mt-5">JSON</h4>
       {JSON.stringify(Frm.data)}
-    </div>
+    </div> */}
   </>
 }
 
 function document(data: any) {
-  return <>
-  </>
+  const Frm = new FormHelper()
+  Frm.update(data, undefined, undefined)
+  return <div className="row">{interview(Frm)}</div>
 }
 

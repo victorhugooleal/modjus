@@ -103,56 +103,62 @@ export const fromErrorToFormState = (error: unknown) => {
 
 export class FormHelper {
     data: any;
-    setData: (data: any) => void = () => { };
+    setData: ((data: any) => void) | undefined = undefined;
     formState: FormState = EMPTY_FORM_STATE;
 
-    public update = (data: any, setData: (data: any) => void, formState: FormState) => {
-        this.data = data;
-        this.setData = setData;
-        this.formState = formState;
+    public update = (data: any, setData: ((data: any) => void) | undefined, formState?: FormState) => {
+        this.data = data
+        this.setData = setData
+        this.formState = formState as FormState
     }
-
-    // constructor(data: any, setData: (data: any) => void, formState: FormState) {
-    //     this.data = data;
-    //     this.setData = setData;
-    //     this.formState = formState;
-    // }
 
     public get = (name: string) => {
         return _.get(this.data, name)
     }
 
     public set = (name: string, value: any) => {
-        const newData = { ...this.data }
-        _.set(newData, name, value)
-        this.setData(newData)
-        this.data = newData
+        if (this.setData) {
+            const newData = { ...this.data }
+            _.set(newData, name, value)
+            this.setData(newData)
+            this.data = newData
+        }
     }
 
     public colClass = (width?: string | number) => `mt-3 col ${typeof width === 'string' ? width : `col-12 col-md-${width || 12}`}`
 
     public Input = ({ label, name, width }: { label: string, name: string, width?: number | string }) => {
-        return (
+        return this.setData ? (
             <Form.Group className={this.colClass(width)} controlId={name}>
                 <Form.Label>{label}</Form.Label>
                 <Form.Control name={name} type="text" value={this.get(name)} onChange={e => this.set(name, e.target.value)} placeholder="" key={name} />
                 <FieldError formState={this.formState} name={name} />
             </Form.Group>
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <p><strong>{this.get(name)}</strong></p>
+            </div>
         )
     }
 
     public TextArea = ({ label, name, width }: { label: string, name: string, width?: number | string }) => {
-        return (
+        return this.setData ? (
             <Form.Group className={this.colClass(width)} controlId={name}>
                 <Form.Label>{label}</Form.Label>
                 <ReactTextareaAutosize className="form-control" name={name} value={this.get(name)} onChange={e => this.set(name, e.target.value)} placeholder="" key={name} />
                 <FieldError formState={this.formState} name={name} />
             </Form.Group>
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <p><strong dangerouslySetInnerHTML={{ __html: (this.get(name) || '').split('\n').join('<br />') }}></strong></p>
+            </div>
         )
     }
 
     public Select = ({ label, name, options, width }: { label: string, name: string, options: { id: string, name: string }[], width?: number | string }) => {
-        return (
+        return this.setData ? (
             <Form.Group className={this.colClass(width)} controlId={name}>
                 <Form.Label>{label}</Form.Label>
                 <Form.Select name={name} value={this.get(name)} onChange={e => this.set(name, e.target.value)}>
@@ -160,11 +166,16 @@ export class FormHelper {
                 </Form.Select>
                 <FieldError formState={this.formState} name={name} />
             </Form.Group >
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <p><strong>{options.find(option => option.id === this.get(name))?.name}</strong></p>
+            </div>
         )
     }
 
     public CheckBoxes = ({ label, labelsAndNames, width }: { label: string, labelsAndNames: { label: string, name: string }[], width?: number | string }) => {
-        return (
+        return this.setData ? (
             <div className={this.colClass(width)}>
                 <Form.Label>{label}</Form.Label>
                 {labelsAndNames.map((c, idx) => {
@@ -173,11 +184,20 @@ export class FormHelper {
                     )
                 })}
             </div>
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                {labelsAndNames.map((c, idx) => {
+                    return (
+                        <p key={c.name}>{c.label}: <strong>{this.get(c.name) ? 'Sim' : 'Não'}</strong></p>
+                    )
+                })}
+            </div>
         )
     }
 
     public RadioButtonsTable = ({ label, labelsAndNames, options, width }: { label: string, labelsAndNames: { label: string, name: string }[], options: { id: string, name: string }[], width?: number | string }) => {
-        return (
+        return this.setData ? (
             <div className={this.colClass(width)}>
                 <Form.Label>{label}</Form.Label>
                 <table className="table table-bordered">
@@ -205,14 +225,49 @@ export class FormHelper {
                     </tbody>
                 </table>
             </div>
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {options.map((o, idx) => <th key={o.id} className="text-center">{o.name}</th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {labelsAndNames.map((c, idx) => {
+                            return (
+                                <tr key={c.name}>
+                                    <td>{c.label}</td>
+                                    {options.map((o, idx) => {
+                                        return (
+                                            <td key={o.id} className="text-center">
+                                                {this.get(c.name) === o.id ? 'X' : ''}
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 
     public Button = ({ onClick, variant, children }: { onClick: () => void, variant?: string, children: any }) => {
-        return (<div className="col col-auto mt-3">
-            <label className="form-label">&nbsp;</label><br />
-            <Button variant="light" onClick={onClick}>{children}</Button>
-        </div>)
+        return this.setData ? (
+            <div className="col col-auto mt-3">
+                <label className="form-label">&nbsp;</label><br />
+                <Button variant="light" onClick={onClick}>{children}</Button>
+            </div>
+        ) : (
+            <div className="col col-auto mt-3">
+                <label className="form-label">&nbsp;</label><br />
+                <p>{children}</p>
+            </div>
+        )
     }
 }
 
