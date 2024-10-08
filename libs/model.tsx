@@ -8,7 +8,7 @@ const Frm = new FormHelper()
 export default function Model(interview: (Frm: FormHelper) => JSX.Element, document: (data: any) => JSX.Element) {
     const searchParams = useSearchParams()
     const currentUrl = window.location.origin + window.location.pathname
-    const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : { texto: "" }
+    const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : {  }
     const [data, setData] = useState(initialData)
     Frm.update(data, setData, EMPTY_FORM_STATE)
 
@@ -17,9 +17,11 @@ export default function Model(interview: (Frm: FormHelper) => JSX.Element, docum
             <div className="content mt-3">
                 <div className="row">
                     <div id="modjus-interview" className="col col-12 col-md-6">
-                        <h1>Entrevista</h1>
-                        <div className="row">
-                            {interview(Frm)}
+                        <h1 className="mt-3">Entrevista</h1>
+                        <div className="alert alert-info">
+                            <div className="row">
+                                {interview(Frm)}
+                            </div>
                         </div>
                     </div>
                     <div className="col col-12 col-md-6">

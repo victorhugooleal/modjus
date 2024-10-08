@@ -163,12 +163,67 @@ export class FormHelper {
         )
     }
 
+    public CheckBoxes = ({ label, labelsAndNames, width }: { label: string, labelsAndNames: { label: string, name: string }[], width?: number | string }) => {
+        return (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                {labelsAndNames.map((c, idx) => {
+                    return (
+                        <Form.Check key={c.name} type="checkbox" label={c.label} checked={this.get(c.name)} onChange={e => this.set(c.name, e.target.checked)} />
+                    )
+                })}
+            </div>
+        )
+    }
+
+    public RadioButtonsTable = ({ label, labelsAndNames, options, width }: { label: string, labelsAndNames: { label: string, name: string }[], options: { id: string, name: string }[], width?: number | string }) => {
+        return (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            {options.map((o, idx) => <th key={o.id}>{o.name}</th>)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {labelsAndNames.map((c, idx) => {
+                            return (
+                                <tr key={c.name}>
+                                    <td>{c.label}</td>
+                                    {options.map((o, idx) => {
+                                        return (
+                                            <td key={o.id}>
+                                                <Form.Check type="radio" name={c.name} value={o.id} checked={this.get(c.name) === o.id} onChange={e => this.set(c.name, e.target.value)} />
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
     public Button = ({ onClick, variant, children }: { onClick: () => void, variant?: string, children: any }) => {
         return (<div className="col col-auto mt-3">
             <label className="form-label">&nbsp;</label><br />
             <Button variant="light" onClick={onClick}>{children}</Button>
         </div>)
     }
+}
 
+// Remove accents, remove spaces, to camelcase, first letter lowercase
+export const labelToName = (label: string) => {
+    return label
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9 ]/g, '')
+        .replace(/\b\w/g, char => char.toUpperCase())
+        .replace(/ /g, '')
+        .replace(/^./, char => char.toLowerCase());
 }
 
