@@ -66,7 +66,7 @@ function document(data: any) {
   return <div className="row">
     <h1 className="text-center">Laudo Médico</h1>
     {interview(Frm)}
-    <div className="assinatura text-center">__________________________________<br />Assinatura do Médico</div>
+    <div className="assinatura text-center">__________________________________<br />Assinatura do Perito(a)</div>
   </div>
 }
 
