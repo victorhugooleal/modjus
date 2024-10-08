@@ -106,7 +106,7 @@ export class FormHelper {
     setData: ((data: any) => void) | undefined = undefined;
     formState: FormState = EMPTY_FORM_STATE;
 
-    public update = (data: any, setData: ((data: any) => void) | undefined, formState?: FormState) => {
+    public update = (data: any, setData?: ((data: any) => void), formState?: FormState) => {
         this.data = data
         this.setData = setData
         this.formState = formState as FormState

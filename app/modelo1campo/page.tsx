@@ -3,12 +3,11 @@
 import Model from "@/libs/model"
 import { FormHelper } from "@/libs/form-support"
 import Endereco from "./Endereco"
+import { Suspense } from "react"
 
 export default function Modelo1Campo() {
-  return Model(interview, document)
+  return (<Suspense>{Model(interview, document)}</Suspense>)
 }
-
-
 
 function interview(Frm: FormHelper) {
   // const options = [{ id: "1", name: 'SP' }, { id: "2", name: 'RJ' }]
@@ -28,13 +27,12 @@ function interview(Frm: FormHelper) {
 
 function document(data: any) {
   return <>
-    <p>O texto é: '{data.texto}'.</p>
-    <p>O texto 1 é: '{data.texto1}'.</p>
-    <p>A UF é: '{data.uf}'.</p>
+    <p>O texto  {data.texto}.</p>
+    <p>O texto 1: {data.texto1}.</p>
+    <p>A UF: {data.uf}.</p>
     {data.uf === '1'
       ? <div>
         <p>Estado de RJ</p>
-        <p>Não é SP</p>
       </div>
       : null}
   </>

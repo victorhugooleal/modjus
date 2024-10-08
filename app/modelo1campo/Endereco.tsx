@@ -8,14 +8,15 @@ async function loadCEP(cep: string) {
 }
 
 async function handleClick(Frm: FormHelper, name: string) {
-    const cep = Frm.data[name].cep 
+    const cep = Frm.data[name].cep
     const json = await loadCEP(cep)
     const newData = { ...Frm.data }
     newData[name].logradouro = json.logradouro
     newData[name].bairro = json.bairro
     newData[name].localidade = json.localidade
     newData[name].uf = json.uf
-    Frm.setData(newData)
+    if (Frm.setData)
+        Frm.setData(newData)
 }
 
 export default function Endereco({ Frm, name }: { Frm: FormHelper, name: string }) {
