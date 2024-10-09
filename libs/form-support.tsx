@@ -129,14 +129,14 @@ export class FormHelper {
 
     public Input = ({ label, name, width }: { label: string, name: string, width?: number | string }) => {
         return this.setData ? (
-            <Form.Group className={this.colClass(width)} controlId={name}>
-                <Form.Label>{label}</Form.Label>
+            <Form.Group className={this.colClass(width)} controlId={name} key={name}>
+                {label && <Form.Label>{label}</Form.Label>}
                 <Form.Control name={name} type="text" value={this.get(name)} onChange={e => this.set(name, e.target.value)} placeholder="" key={name} />
                 <FieldError formState={this.formState} name={name} />
             </Form.Group>
         ) : (
             <div className={this.colClass(width)}>
-                <Form.Label className="report-label"><div>{label}</div></Form.Label>
+                {label && <Form.Label className="report-label"><div>{label}</div></Form.Label>}
                 <p className="report-field"><strong>{this.get(name)}</strong></p>
             </div>
         )
