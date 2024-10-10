@@ -1,16 +1,9 @@
 'use client'
 
 import Model from "@/libs/model"
-import { FormHelper, labelToName } from "@/libs/form-support"
+import { FormHelper } from "@/libs/form-support"
 
 function interview(Frm: FormHelper) {
-  const oEscolaridade = ";Ensino Fundamental - 1º ano;Ensino Fundamental - 2º ano;Ensino Fundamental - 3º ano;Ensino Fundamental - 4º ano;Ensino Fundamental - 5º ano;Ensino Fundamental - 6º ano;Ensino Fundamental - 7º ano;Ensino Fundamental - 8º ano;Ensino Fundamental - 9º ano;Ensino Médio - 1ª série;Ensino Médio - 2ª série;Ensino Médio - 3ª série;Curso Técnico;Ensino Superior;Mestrado;Doutorado".split(';').map((i) => ({ id: `${i}`, name: i }))
-  const oFuncoesDoCorpo = "Funções Mentais;Funções Sensoriais da Visão;Funções Sensoriais da Audição;Funções Sensoriais Adicionais e Dor;Funções da Voz e da Fala;Funções do Sistema Cardiovascular;Funções do Sistema Hematológico;Funções do Sistema Imunológico;Funções do Sistema Respiratório;Funções do Sistema Digestivo;Funções do Sistema Metabólico e Endócrino;Funções Geniturinárias e Reprodutivas;Funções Neuromusculoesqueléticas e Relacionadas ao Movimento;Funções da Pele e Estruturas Relacionadas".split(';').map((i) => ({ label: i, name: `${labelToName(i)}` }))
-  const oNivel = "Grau A;Grau B;Grau C;Grau D".split(';').map((i) => ({ id: `${i.split(' ')[1]}`, name: i }))
-  const oAtividadeFisica = "Fazer caminhadas;Permanecer em pé;Subir e descer escadas;Abaixar ou agachar;Erguer peso".split(';').map((i) => ({ label: i, name: `${labelToName('atividades ' + i)}` }))
-  const oAutoCuidado = "Higiene pessoal;Alimentar-se e beber;Preparar as próprias refeições;Organizar atividades domésticas, cuidado da casa, compras e pagamento de contas;Ficar sozinho(a) sem produzir riscos para si;Cuidar de terceiros".split(';').map((i) => ({ label: i, name: `${labelToName('cuidados ' + i)}` }))
-  const oRelacoes = "Ouvir;Falar;Orientar-se espacialmente e no tempo;Compreender e ser compreendido;Concentrar-se para a execução de tarefas;Juízo Crítico e capacidade de tomar decisões, inclusive sob estresse;Estabelecer interações interpessoais familiares, sociais e profissionais;Possibilidade de se colocar no mercado de trabalho;Utilizar transporte público".split(';').map((i) => ({ label: i, name: `${labelToName('relacoes ' + i)}` }))
-  
   const oCaracteristicas = [
     { label: 'Turma Recursal', name: 'turmaRecursal' },
     { label: 'Juizado Especial Federal', name: 'jef' },
