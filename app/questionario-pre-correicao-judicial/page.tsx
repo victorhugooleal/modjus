@@ -2,6 +2,7 @@
 
 import Model from "@/libs/model"
 import { FormHelper } from "@/libs/form-support"
+import SelectUnidade from "@/components/sei/SelectUnidade"
 
 function interview(Frm: FormHelper) {
   const oCaracteristicas = [
@@ -17,7 +18,8 @@ function interview(Frm: FormHelper) {
     <Frm.Input label="Data de Encerramento" name="dataEncerramento" width={4} />
 
     <h2>1. Informações da Unidade</h2>
-    <Frm.Input label="Unidade" name="t1Unidade" width={4} />
+    <SelectUnidade Frm={Frm} name="t1Unidade" width={4} />
+    {/* <Frm.Input label="Unidade" name="t1Unidade" width={4} /> */}
     <Frm.Input label="Data da Instalação" name="t1DataDaInstalacao" width={4} />
     <Frm.TextArea label="Competências (referir eventual alteração de competência ocorrida nos últimos 12 meses e respectivo ato normativo)" name="t1Competencias" width={12} />
     <Frm.CheckBoxes label="Assinale as Características da Unidade" labelsAndNames={oCaracteristicas} width={12} />
