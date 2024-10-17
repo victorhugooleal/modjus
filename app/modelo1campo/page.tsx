@@ -3,6 +3,7 @@
 import Model from "@/libs/model"
 import { FormHelper } from "@/libs/form-support"
 import Endereco from "./Endereco"
+import UnidadeSelect from "./UnidadeSelect"
 import { Suspense } from "react"
 
 export default function Modelo1Campo() {
@@ -21,6 +22,7 @@ function interview(Frm: FormHelper) {
 
     <Frm.TextArea label="Qual é o texto1?" name="texto1" />
 
+    <UnidadeSelect/>
     {JSON.stringify(Frm.data)}
   </>
 }
