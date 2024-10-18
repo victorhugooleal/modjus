@@ -17,6 +17,7 @@
     "react": "^18",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18",
+    "react-select": "^5.8.1",
     "react-textarea-autosize": "^8.5.3",
     "soap": "^1.1.5",
     "xml2js": "^0.6.2",

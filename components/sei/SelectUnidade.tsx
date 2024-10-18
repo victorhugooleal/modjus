@@ -25,6 +25,6 @@ export default function SelectUnidade({ Frm, name, width }: { Frm: FormHelper, n
     if (loading) return <Frm.Select label="Unidade (carregando)" name={name + '_loading'} options={[]} width={width} />
 
     return <>
-        <Frm.Select label="Unidade" name={name} options={listaDeUnidades} width={12} />
+        <Frm.SelectAutocomplete label="Unidade" name={name} options={listaDeUnidades} width={12} />
     </>
 }

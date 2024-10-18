@@ -16,7 +16,7 @@ function interview(Frm: FormHelper) {
 
   return <>
     <Frm.Input label="Qual é o texto?" name="texto" width={6} />
-    <Frm.Select label="UF" name="uf" options={options} width={6} />
+    <Frm.SelectAutocomplete label="UF" name="uf" options={options} width={6} />
 
     <Endereco Frm={Frm} name="endereco" />
 

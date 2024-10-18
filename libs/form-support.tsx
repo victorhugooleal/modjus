@@ -1,6 +1,7 @@
 import { Button, Form } from 'react-bootstrap'
 import ReactTextareaAutosize from 'react-textarea-autosize'
-import { z, ZodTypeAny, ZodError } from 'zod';
+import { z, ZodTypeAny, ZodError } from 'zod'
+import ReactSelect from 'react-select'
 import _ from 'lodash'
 import { Dispatch } from 'react';
 
@@ -164,6 +165,21 @@ export class FormHelper {
                 <Form.Select name={name} value={this.get(name)} onChange={e => this.set(name, e.target.value)}>
                     {options.map(c => (<option value={c.id} key={c.id}  >{c.name}</option>))}
                 </Form.Select>
+                <FieldError formState={this.formState} name={name} />
+            </Form.Group >
+        ) : (
+            <div className={this.colClass(width)}>
+                <Form.Label>{label}</Form.Label>
+                <p><strong>{options.find(option => option.id === this.get(name))?.name}</strong></p>
+            </div>
+        )
+    }
+
+    public SelectAutocomplete = ({ label, name, options, width }: { label: string, name: string, options: { id: string, name: string }[], width?: number | string }) => {
+        return this.setData ? (
+            <Form.Group className={this.colClass(width)} controlId={name}>
+                <Form.Label>{label}</Form.Label>
+                <ReactSelect name={name} value={this.get(name)} onChange={e => this.set(name, e.value)} options={options.map(i => ({ value: i.id, label: i.name }))} />
                 <FieldError formState={this.formState} name={name} />
             </Form.Group >
         ) : (
