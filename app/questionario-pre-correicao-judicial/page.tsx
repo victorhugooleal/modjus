@@ -33,15 +33,14 @@ function interview(Frm: FormHelper) {
     <Frm.TextArea label="Períodos de substituição, em férias, de outro magistrado" name="t2TitularSubstituicoes" width={12} />
     <Frm.TextArea label="Qual a modalidade de trabalho adotada pelo Magistrado no Juízo? (art. 2º, TRF2-PVC-2023/00002)" name="t2TitularModalidadeTrabalho" width={12} />
     <Frm.TextArea label="Como é realizado o atendimento aos advogados/procuradores? (art. 3º, TRF2-PVC-2023/00002)" name="t2TitularAtendimento" width={12} />
- 
-{/* colocar if*/}
+
           <Frm.Input label="Substituto" name="t2Substituto" width={4} />
           <Frm.Input label="Tempo de atuação na unidade" name="t2SubstitutoTempoDeAtuacaoNaUnidade" width={12} />
           <Frm.TextArea label="Afastamentos superiores a 15 dias nos últimos 12 meses, especificando o período e o fundamento" name="t2SubstitutoAfastamentos" width={12} />
           <Frm.TextArea label="Períodos de substituição, em férias, de outro magistrado" name="t2SubstitutoSubstituicoes" width={12} />
           <Frm.TextArea label="Qual a modalidade de trabalho adotada pelo Magistrado no Juízo? (art. 2º, TRF2-PVC-2023/00002)" name="t2SubstitutoModalidadeTrabalho" width={12} />
           <Frm.TextArea label="Como é realizado o atendimento aos advogados/procuradores? (art. 3º, TRF2-PVC-2023/00002)" name="t2SubstitutoAtendimento" width={12} />
-       
+
     <h2>3. Auxílios</h2>
     <Frm.TextArea label="Auxílios prestados e recebidos nos últimos 12 meses" name="t3Auxilios" width={12} />
   
@@ -54,14 +53,14 @@ function interview(Frm: FormHelper) {
     <Frm.Select label="Técnicos Jud. de Segurança" name="t4UltimaCorreicaoAnalistasJudiciariosDeSeguranca" options={oDe1a20} width={2} />
     <Frm.Select label="Requisitados ou outros" name="t4UltimaCorreicaoRequisitadosOuOutros" options={oDe1a20} width={2} />
     <Frm.Select label="Total de servidores" name="t4UltimaCorreicaoTotalDeServidores" options={oDe1a20} width={2} />
-    <Frm.Select label="Quadro Previsto" name="t4UltimaCorreicaoQuadroPrevisto" options={oDe1a20} width={2} />
+    <Frm.Select label="Quadro Previsto de servidores" name="t4UltimaCorreicaoQuadroPrevisto" options={oDe1a20} width={2} />
     <h4>Atualmente</h4>
     <Frm.Select label="Analistas Judiciários" name="t4AtualmenteAnalistasJudiciarios" options={oDe1a20} width={2} />
     <Frm.Select label="Técnicos Judiciários" name="t4AtualmenteTecnicosJudiciarios" options={oDe1a20} width={2} />
     <Frm.Select label="Técnicos Jud. de Segurança" name="t4AtualmenteAnalistasJudiciariosDeSeguranca" options={oDe1a20} width={2} />
     <Frm.Select label="Requisitados ou outros" name="t4AtualmenteRequisitadosOuOutros" options={oDe1a20} width={2} />
     <Frm.Select label="Total de servidores" name="t4AtualmenteTotalDeServidores" options={oDe1a20} width={2} />
-    <Frm.Select label="Quadro Previsto" name="t4AtualmenteQuadroPrevisto" options={oDe1a20} width={2} />
+    <Frm.Select label="Quadro Previsto de servidores" name="t4AtualmenteQuadroPrevisto" options={oDe1a20} width={2} />
 
     <Frm.Select label="Quantidade de servidores em teletrabalho em observância do limite máximo previsto no art. 5º da Resolução nº TRF2-RSP-2019/00046, alterada pela Resolução n.º TRF2-RSP-2023/00002 (30% do quadro permanente), bem como se é encaminhado o relatório semestral de avaliação, previsto no art. 13, III, da referida Resolução" name="t4QuantidadeDeServidoresEmTeletrabalho" options={oDe1a20} width={12} />
     {Array.from({ length: Frm.data.t4QuantidadeDeServidoresEmTeletrabalho }).map((_, i) => (
@@ -73,52 +72,37 @@ function interview(Frm: FormHelper) {
       </div>
     ))}
 
-    {/* <Frm.Input label="Nome" name="nome" width={9} />
-    <Frm.Input label="Idade" name="idade" width={3} />
-    <Frm.Input label="Peso" name="peso" width={3} />
-    <Frm.Input label="Altura" name="altura" width={3} />
-    <Frm.Select label="Escolaridade" name="escolaridade" options={oEscolaridade} width={6} />
-    <Frm.TextArea label="Patologia(s) ou sequela(s) que acomete(m) a parte autora: Mencionar a(s) CID(s) indicando os documentos médicos que a comprovam" name="patologia" width={12} />
-    <Frm.TextArea label="Resumo da História Clínica / Anamnese" name="anamnese" width={12} />
-    <Frm.TextArea label="Informações de exames e laudos apresentados" name="sss" width={12} />
-    <Frm.TextArea label="Informações de exames e laudos apresentados" name="examesELaudos" width={12} />
+    <h2>5. Estagiários</h2>
+    <Frm.Select label="Número de estagiários de nível superior previstos para unidade" name="t5NumeroPrevistoDeEstagiariosDeNivelSuperior" options={oDe1a20} width={3} />
+    <Frm.Select label="Número de estagiários de nível médio previstos para unidade" name="t5NumeroPrevistoDeEstagiariosDeNivelMédio" options={oDe1a20} width={3} />
+    <Frm.Select label="Número de estagiários de nível superior lotados na unidade" name="t5NumeroEfetivoDeEstagiariosDeNivelSuperior" options={oDe1a20} width={3} />
+    <Frm.Select label="Número de estagiários de nível médio lotados na unidade" name="t5NumeroEfetivoDeEstagiariosDeNivelMédio" options={oDe1a20} width={3} />   
 
-    <Frm.CheckBoxes label="Assinale as alterações nas Funções do Corpo constatadas" labelsAndNames={oFuncoesDoCorpo} width={12} />
+    <h2>6. Instalações Físicas e Infraestrutura</h2>
+    <Frm.TextArea label="Relatar a situação das instalações físicas do setor (mobiliário, ar condicionado, etc.) e dos equipamentos de informática, informando eventuais problemas, dificuldades, bem como destacando se há mobiliário e/ou equipamentos de informática danificados/defeituosos sem previsão de reparo ou substituição já requerida à DIRFO"  name="t6InstalacoesFisicasEInfraestrutura" width={12} />
 
-    <Frm.TextArea label="Exame Clínico (com descrição das alterações de funções do corpo assinaladas acima e de estruturas do corpo, se houver)" name="exameClinico" width={12} />
-    <Frm.TextArea label="Há sinais exteriores da patologia ou sequelas duradouros (mais de 2 anos)? " name="sinaisExteriores" width={12} />
-
-    <div className="col col-12 mt-3">
-      <p>Levando-se em conta as patologias, dificuldades encontradas, idade e grau de instrução da parte autora, deverá o(a) Perito(a) preencher o quadro abaixo, assinalando, para cada atividade, o nível de obstrução ou impedimento enfrentado, tomando-se como referência: </p>
-      <ul>
-        <li>A - Executa a atividade nos mesmos moldes que outras pessoas com mesma idade e grau de instrução.</li>
-        <li>B - Executa a atividade com pouca dificuldade adicional (até 25% a mais de esforço) em relação às pessoas com mesma idade e grau de instrução.</li>
-        <li>C - Executa a atividade com significativa dificuldade adicional (superior a 25% de esforço) em relação às pessoas com mesma idade e grau de instrução.</li>
-        <li>D - Não executa a atividade em razão de suas limitações pessoais / deficiência.</li>
-      </ul>
-    </div>
-
-    <Frm.RadioButtonsTable label="Atividade Física" labelsAndNames={oAtividadeFisica} options={oNivel} width={12} />
-    <Frm.RadioButtonsTable label="Auto Cuidado e Âmbito Doméstico" labelsAndNames={oAutoCuidado} options={oNivel} width={12} />
-    <Frm.RadioButtonsTable label="Relações Interpessoais e Sociais. Aprendizagem. Cognição. Inserção Profissional." labelsAndNames={oRelacoes} options={oNivel} width={12} />
-
-    <div className="col col-12 mt-3">
-      <h4>Quesitos Complementares</h4>
-    </div>
-    <Frm.TextArea label="Caso sejam constatadas limitações (graus B, C ou D) para atividades relacionadas no quadro acima, qual a data de início ou época aproximada em que a obstrução / impedimento / dificuldade passou a interferir na vida do(a) periciando(a)?" name="inicio" width={12} />
-    <Frm.TextArea label="Caso sejam constatadas limitações (graus B, C ou D) para atividades relacionadas no quadro acima, é possível afirmar que a obstrução / impedimento / dificuldade irá perdurar por mais de 2 anos? Se menos de 2 anos, qual prognóstico de tempo para reversão?" name="prognosticoReversao" width={12} />
-    <Frm.TextArea label="Há outras atividades individuais ou de participação social cotidianas (não elencadas no quadro acima) impactadas por limitações de natureza física, mental, intelectual ou sensorial da parte autora? Caso positivo, especifique e indique os graus (B, C ou D), bem como data de início ou época aproximada em que a obstrução / impedimento / dificuldade passou a interferir na vida do(a) periciando(a). É possível afirmar que irá perdurar por mais de 2 anos? Se menos de 2 anos, qual prognóstico de tempo para reversão?" name="outras" width={12} />
-    <Frm.TextArea label="Sobre facilitadores - As alterações em funções e/ou estruturas do corpo podem ser solucionadas / compensadas, em tese, em menos de 2 anos? Como? A parte autora tem efetivo acesso a tecnologias / insumos de saúde facilitadores, que eliminam ou compensem as limitações de natureza física, mental, intelectual ou sensorial impostas pela patologia?" name="facilitadores" width={12} />
-    <Frm.TextArea label="Caso seja possível à parte executar atividades (trabalhos formais ou informais) que lhe garantam sustento, há necessidade de afastamento periódico do trabalho para rotinas de tratamento ou internações? Em caso positivo, quantas vezes por dia (ou semana, ou mês) e respectiva duração." name="afastamentoPeriodico" width={12} />
-    <Frm.TextArea label="Há necessidade de medicações de uso contínuo? Em caso positivo, tais medicações influenciam de forma significativa a interação com as demais pessoas e/ou ambiente? Há necessidade de uso de fraldas?" name="medicacoesDeUsoContinuo" width={12} />
-    <Frm.TextArea label="O(A) periciando(a) depende de supervisão ou acompanhamento permanente de terceiros em sua vida diária?" name="supervisao" width={12} />
-    <Frm.TextArea label="Informações Adicionais que o(a) perito(a) entenda que possam ajudar no julgamento da lide." name="informacoesAdicionais" width={12} /> */}
-
-    {/* <div className="col col-12">
-      <h4 className="mt-5">JSON</h4>
-      {JSON.stringify(Frm.data)}
-    </div> */}
-  </>
+    <h2>7. Livros e Pastas</h2>
+    <Frm.TextArea label="Quais os livros e pastas utilizados pela Vara Federal, Juizado Especial ou Turma Recursal?"  name="t7LivrosEPastasUtilizados" width={12} />
+    <Frm.TextArea label="Algum livro ou pasta em papel foi substituído por registro informatizado (art. 132 da CNCR)? Quais?"  name="t7LivrosEPastasSubstituidos" width={12} />
+    <Frm.TextArea label="Informar quais as Pastas/Livros Eletrônicos de controle obrigatório existentes no Siga, com a descrição dos expedientes que lhes corresponda"  name="t7LivrosEPastasExistentesNoSiga" width={12} />
+ 
+    <h2>8. Organização da Unidade e Setorização (todas as unidades)</h2>
+    <Frm.TextArea label="Detalhar, sucintamente, a forma de organização da unidade, destacando as atribuições do Diretor (a) de Secretaria; Supervisores; e demais servidores"  name="t8FormaDeOrganizacao" width={12} />
+    <Frm.TextArea label="Informar, sucintamente, sobre a sistemática de planejamento das atividades da unidade e a existência de metas internas, detalhando conforme o caso"  name="t8SistematicaDePlanejamento" width={12} />
+    <Frm.TextArea label="Informar, sucintamente, sobre a sistemática de avaliação periódica dos resultados das atividades da unidade"  name="t8SistematicaDeAvaliacao" width={12} />
+    <Frm.TextArea label="Detalhar o tratamento dado aos processos incluídos nas Metas do CNJ, feitos com prioridade legal e demais ações elencadas no art. 12, parágrafo único, da Resolução nº 496/2006 do CJF"  name="t8ProcessosIncluidosNasMetasDoCNJ" width={12} />
+    <Frm.TextArea label="Critérios de julgamento para os demais feitos"  name="t8CriteriosDeJulgamentoParaOsDemaisFeitos" width={12} />
+    <Frm.TextArea label="Informar, sucintamente, como ocorre o fluxo dos processos entre a secretaria e o gabinete, a abertura da conclusão e a forma de controle do prazo para prolação de sentenças"  name="t8FluxoDeInformacoes" width={12} />
+   
+    {oCaracteristicas[0].name === 'turmaRecursal' ? (
+         <Frm.Input label="Número de processos com pedidos urgentes (liminares, antecipações de tutela) pendentes de análise" name="t8NumeroDeProcessosComPedidosUrgentes" width={12} />
+    ) : ('')}
+ 
+    <Frm.TextArea label="Há utilização de automação de localizadores (e-Proc) na unidade?"  name="t8UtilizacaoDeAutomacaoDosLocalizadores" width={12} />
+    <Frm.TextArea label="Como é feito o controle dos prazos de suspensão dos processos? Há inserção em local (físico ou virtual) específico, com a anotação do motivo de suspensão e a data do término?"  name="t8PrazosDeSuspensao" width={12} />
+    <Frm.TextArea label="A unidade verifica a pertinência do assunto cadastrado no processo quando recebe novos processos, garantindo que todos os processos do acervo possuam assunto folha (último nível) ou de nível 3 ou mais, respeitando a padronização da terminologia de assuntos processuais imposta pelo CNJ?"  name="t8RespeitoAPadronizacaoDoCNJ" width={12} />
+    <Frm.TextArea label="A unidade possui algum processo em que não há assunto correspondente disponível na Tabela Unificada? A situação foi informada à SAJ ou CORETAB?"  name="t8ProcessoSemAssuntoCorrespondente" width={12} />
+</>
 }
 
 function document(data: any) {

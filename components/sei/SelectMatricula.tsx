@@ -1,8 +1,8 @@
 import { FormHelper } from "@/libs/form-support"
 import { useEffect, useState } from "react";
 
-async function loadUnidades() {
-    const retorno = await fetch(`http://localhost:3000/api/sei-soap`)
+async function loadMatriculas() {
+    const retorno = await fetch(`https://localhost:3000/api/sei-soap`)
     const json = await retorno.json()
     return json
 }
@@ -13,7 +13,7 @@ export default function SelectUnidade({ Frm, name, width }: { Frm: FormHelper, n
 
     useEffect(() => {
         async function fetchData() {
-            const unidades = await loadUnidades()
+            const unidades = await loadMatriculas()
             console.log('unidades', unidades)
             const unidadesMapeadas: { id: string, name: string }[] = unidades.map((u: any) => ({ id: u.id, name: `${u.sigla}: ${u.descricao}` }))
        //    setListaDeUnidades([{ id: '', name: '' }, ...unidadesMapeadas])
