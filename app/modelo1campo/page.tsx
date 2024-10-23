@@ -5,6 +5,7 @@ import { FormHelper } from "@/libs/form-support"
 import Endereco from "./Endereco"
 import { Suspense } from "react"
 import SelectUnidade from "../../components/sei/SelectUnidade"
+import Pessoa from "@/components/sei/Pessoa"
 
 export default function Modelo1Campo() {
   return (<Suspense>{Model(interview, document)}</Suspense>)
@@ -19,6 +20,8 @@ function interview(Frm: FormHelper) {
     <Frm.SelectAutocomplete label="UF" name="uf" options={options} width={6} />
 
     <Endereco Frm={Frm} name="endereco" />
+
+    <Pessoa Frm={Frm} name="pessoa" />
 
     <SelectUnidade Frm={Frm} name="unidade" />
 
