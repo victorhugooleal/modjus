@@ -16,8 +16,8 @@ export default function SelectUnidade({ Frm, name, width }: { Frm: FormHelper, n
             const unidades = await loadUnidades()
             console.log('unidades', unidades)
             const unidadesMapeadas: { id: string, name: string }[] = unidades.map((u: any) => ({ id: u.id, name: `${u.sigla}: ${u.descricao}` }))
-       //    setListaDeUnidades([{ id: '', name: '' }, ...unidadesMapeadas])
-            setListaDeUnidades(unidadesMapeadas)
+            setListaDeUnidades([{ id: '', name: '' }, ...unidadesMapeadas])
+        //    setListaDeUnidades(unidadesMapeadas)
             setLoading(false)
         }
         if (loading) fetchData()

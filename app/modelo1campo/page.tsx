@@ -5,7 +5,7 @@ import { FormHelper } from "@/libs/form-support"
 import Endereco from "./Endereco"
 import { Suspense } from "react"
 import SelectUnidade from "../../components/sei/SelectUnidade"
-import Pessoa from "@/components/sei/Pessoa"
+import PessoaMany from "@/components/sei/PessoaMany"
 
 export default function Modelo1Campo() {
   return (<Suspense>{Model(interview, document)}</Suspense>)
@@ -21,7 +21,7 @@ function interview(Frm: FormHelper) {
 
     <Endereco Frm={Frm} name="endereco" />
 
-    <Pessoa Frm={Frm} name="pessoa" />
+    <PessoaMany Frm={Frm} name="pessoa" />
 
     <SelectUnidade Frm={Frm} name="unidade" />
 

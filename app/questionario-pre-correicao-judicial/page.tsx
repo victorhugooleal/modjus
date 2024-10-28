@@ -3,6 +3,7 @@
 import Model from "@/libs/model"
 import { FormHelper } from "@/libs/form-support"
 import SelectUnidade from "@/components/sei/SelectUnidade"
+import Pessoa from "@/components/sei/Pessoa"
 
 function interview(Frm: FormHelper) {
   const oCaracteristicas = [
@@ -27,7 +28,7 @@ function interview(Frm: FormHelper) {
 
     <h2>2. Magistrados</h2>
      {/* Trocar abaixo para algum componente pessoa */}
-    <Frm.Input label="Titular" name="t2Titular" width={4} />
+     <Pessoa Frm={Frm}  name="t2Titular" />
     <Frm.Input label="Tempo de atuação na unidade" name="t2TitularTempoDeAtuacaoNaUnidade" width={12} />
     <Frm.TextArea label="Afastamentos superiores a 15 dias nos últimos 12 meses, especificando o período e o fundamento" name="t2TitularAfastamentos" width={12} />
     <Frm.TextArea label="Períodos de substituição, em férias, de outro magistrado" name="t2TitularSubstituicoes" width={12} />
