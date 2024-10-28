@@ -11,7 +11,7 @@ export default function SelectUnidade({ Frm, name, width }: { Frm: FormHelper, n
     const [listaDeUnidades, setListaDeUnidades] = useState([] as { id: string, name: string }[])
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
+   useEffect(() => { 
         async function fetchData() {
             const unidades = await loadUnidades()
             console.log('unidades', unidades)

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormHelper } from "@/libs/form-support";
 import styles from '@/PessoaMany.module.css';
 
@@ -21,35 +21,13 @@ async function loadPessoa(texto: string) {
 
    const retorno = await fetch(`/api/siga-rest/pessoas?texto=${encodeURI(texto)}`);
    const json = await retorno.json();
-     
-   // Filtrar lotações
-   const allowedOrgaoIds = ['1', '2', '3'];
-   const filteredList = json.list.filter((lotacao: Lotacao) =>  allowedOrgaoIds.includes(lotacao.orgao.idOrgao)
-   );
+   return json;  
 
-   return filteredList; // Retorna apenas os itens que atendem ao critério
+    // Retorna apenas os itens que atendem ao critério
 
 }
 
-async function handleClick(Frm: FormHelper, name: string, setPopupData: (data: any[]) => void, setIsOpen: (data: boolean) => void)  {
-    const sigla = Frm.data[name].sigla;
-    const json = await loadPessoa(sigla);
 
-    if (json.list && json.list.length > 0) {
-        if (json.list.length > 1) {
-     
-            // Se houver mais de um item, atualize o estado para abrir o popup
-            const PessoasMapeadas: { sigla: string, nome: string }[] = json.list.map((u: any) => ({ sigla: u.sigla, nome: u.nome}))
-            setPopupData([{sigla: '', nome: '' }, ...PessoasMapeadas])
-            setIsOpen(true);
-        } else {
-            const newData = { ...Frm.data };
-            newData[name].sigla = json.list[0].sigla;
-            newData[name].descricao = json.list[0].nome;
-            if (Frm.setData) Frm.setData(newData);
-        }
-    }
-}
 
 interface PessoaProps {
     Frm: FormHelper;
@@ -60,6 +38,33 @@ export default function PessoaMany({ Frm, name }: PessoaProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [popupData, setPopupData] = useState<any[]>([]);
     const [selectedValue, setSelectedValue] = useState<string>('');
+
+
+    async function handleClick(Frm: FormHelper, name: string, setPopupData: (data: any[]) => void, setIsOpen: (data: boolean) => void)  {
+        const sigla = Frm.data[name].sigla;
+        const json1 = await loadPessoa(sigla);
+     
+            // Filtrar lotações
+        //const allowedOrgaoIds = ['1', '2', '3'];
+        if (json1.list && json1.list.length > 0) {
+         const json = json1;
+      //  const json =   json1.list.filter((lotacao: Lotacao) => lotacao.orgao && allowedOrgaoIds.includes(lotacao.orgao.idOrgao))
+        if (json.list && json.list.length > 0) {
+             if (json.list.length > 1) {
+          
+                 // Se houver mais de um item, atualize o estado para abrir o popup
+                 const PessoasMapeadas: { sigla: string, nome: string, idOrgao: string }[] = json.list.map((u: any) => ({ sigla: u.sigla, nome: u.nome, idOrgao:u.lotacao.orgao.idOrgao}))
+                 setPopupData([{sigla: '', nome: '' }, ...PessoasMapeadas])
+                 setIsOpen(true);
+             } else {
+                 const newData = { ...Frm.data };
+                 newData[name].sigla = json.list[0].sigla;
+                 newData[name].descricao = json.list[0].nome;
+                 if (Frm.setData) Frm.setData(newData);
+             }
+         }
+     }
+     }
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(e.target.value);
@@ -75,6 +80,19 @@ export default function PessoaMany({ Frm, name }: PessoaProps) {
         }
         setIsOpen(false);
     };
+
+    
+     useEffect(() => {
+
+        const popupData1 = popupData.filter(item =>
+            ['1', '2', '3'].includes(item.idOrgao)
+            );
+    
+          setPopupData(popupData1);
+          setIsOpen(true);
+        
+     }, [popupData])
+    
 
     return (
         <>
