@@ -54,7 +54,17 @@ export default function PessoaMany({ Frm, name }: PessoaProps) {
           
                  // Se houver mais de um item, atualize o estado para abrir o popup
                  const PessoasMapeadas: { sigla: string, nome: string, idOrgao: string }[] = json.list.map((u: any) => ({ sigla: u.sigla, nome: u.nome, idOrgao:u.lotacao.orgao.idOrgao}))
-                 setPopupData([{sigla: '', nome: '' }, ...PessoasMapeadas])
+                 const PessoasMapeadas1 = PessoasMapeadas.filter(item =>
+                    ['1', '2', '3'].includes(item.idOrgao)
+                    );
+                   if (PessoasMapeadas1.filter.length == 1) {
+                     const newData = { ...Frm.data };
+                     newData[name].sigla = PessoasMapeadas1[0].sigla;
+                     newData[name].descricao = PessoasMapeadas1[0].nome;
+                     if (Frm.setData) Frm.setData(newData);
+                     return;
+                  }   
+                 setPopupData([{sigla: '', nome: '' }, ...PessoasMapeadas1])
                  setIsOpen(true);
              } else {
                  const newData = { ...Frm.data };
@@ -82,16 +92,16 @@ export default function PessoaMany({ Frm, name }: PessoaProps) {
     };
 
     
-     useEffect(() => {
+    //  useEffect(() => {
 
-        const popupData1 = popupData.filter(item =>
-            ['1', '2', '3'].includes(item.idOrgao)
-            );
+    //     const popupData1 = popupData.filter(item =>
+    //         ['1', '2', '3'].includes(item.idOrgao)
+    //         );
     
-          setPopupData(popupData1);
-          setIsOpen(true);
+    //       setPopupData(popupData1);
+    //       setIsOpen(true);
         
-     }, [popupData])
+    //  }, [popupData])
     
 
     return (
