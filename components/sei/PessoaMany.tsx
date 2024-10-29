@@ -57,7 +57,7 @@ export default function PessoaMany({ Frm, name }: PessoaProps) {
                  const PessoasMapeadas1 = PessoasMapeadas.filter(item =>
                     ['1', '2', '3'].includes(item.idOrgao)
                     );
-                   if (PessoasMapeadas1.filter.length == 1) {
+                   if (PessoasMapeadas1.length == 1) {
                      const newData = { ...Frm.data };
                      newData[name].sigla = PessoasMapeadas1[0].sigla;
                      newData[name].descricao = PessoasMapeadas1[0].nome;
