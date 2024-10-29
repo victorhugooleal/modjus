@@ -5,7 +5,7 @@ import { FormHelper } from "@/libs/form-support"
 import Endereco from "./Endereco"
 import { Suspense } from "react"
 import SelectUnidade from "../../components/sei/SelectUnidade"
-import PessoaMany from "@/components/sei/PessoaMany"
+import PessoaMany from "@/components/sei/Pessoa"
 
 export default function Modelo1Campo() {
   return (<Suspense>{Model(interview, document)}</Suspense>)

@@ -10,7 +10,8 @@ const Frm = new FormHelper()
 
 export default function Model(interview: (Frm: FormHelper) => JSX.Element, document: (data: any) => JSX.Element, options?: { saveButton?: boolean, pdfButton?: boolean, pdfFileName: string }) {
     const searchParams = useSearchParams()
-    const currentUrl = searchParams.get('url') ? JSON.parse(searchParams.get('url') as string) : (process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_VERCEL_URL) + usePathname()
+    console.log('searchParams', JSON.stringify(searchParams))
+    const currentUrl = searchParams.get('url') ? searchParams.get('url') as string : (process.env.NEXT_PUBLIC_URL || process.env.NEXT_PUBLIC_VERCEL_URL) + usePathname()
     const initialData = searchParams.get('data') ? JSON.parse(searchParams.get('data') as string) : {}
     const [data, setData] = useState(initialData)
     Frm.update(data, setData, EMPTY_FORM_STATE)
