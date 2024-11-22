@@ -142,6 +142,41 @@ export class FormHelper {
         )
     }
 
+    public InputServidoresEmTeletrabalho = ({
+        label,
+        name,
+        width
+      }: {
+        label: string;
+        name: string;
+        width?: number | string;
+      }) => {
+        return this.setData ? (
+          <Form.Group className={this.colClass(width)} controlId={name} key={name}>
+            {label && <Form.Label>{label}</Form.Label>}
+            <Form.Control
+              name={name}
+              type="text"
+              value={this.get(name)}
+              onChange={(e) => this.set(name, e.target.value)}
+              placeholder=""
+            />
+            <FieldError formState={this.formState} name={name} />
+          </Form.Group>
+        ) : (
+          <div className={this.colClass(width)}>
+            {label && (
+              <Form.Label className="report-label">
+                <div>{label}</div>
+              </Form.Label>
+            )}
+            <p className="report-field">
+              <strong>{this.get(name)}</strong>
+            </p>
+          </div>
+        );
+      };
+
     public TextArea = ({ label, name, width }: { label: string, name: string, width?: number | string }) => {
         return this.setData ? (
             <Form.Group className={this.colClass(width)} controlId={name}>
