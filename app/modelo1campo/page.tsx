@@ -15,6 +15,13 @@ function interview(Frm: FormHelper) {
   // const options = [{ id: "1", name: 'SP' }, { id: "2", name: 'RJ' }]
   const options = "RJ;SP;MG".split(';').map((uf, idx) => ({ id: `${idx + 1}`, name: uf }))
 
+  const oCaracteristicas = [
+    { label: 'Turma Recursal', name: 'turmaRecursal' },
+    { label: 'Juizado Especial Federal', name: 'jef' },
+    { label: 'Criminal', name: 'criminal' },
+    { label: 'Execução Fiscal', name: 'execucaoFiscal' }
+  ]
+
   return <>
     <Frm.Input label="Qual é o texto?" name="texto" width={6} />
     <Frm.SelectAutocomplete label="UF" name="uf" options={options} width={6} />
@@ -28,6 +35,10 @@ function interview(Frm: FormHelper) {
     <Frm.TextArea label="Qual é o texto1?" name="texto1" />
 
     {JSON.stringify(Frm.data)}
+
+    <Frm.CheckBoxes label="Assinale as Características da Unidade" labelsAndNames={oCaracteristicas} width={12} />
+
+    
   </>
 }
 
